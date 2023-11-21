@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>SudokoTemplate/template.png</file>
+        <file>SudokoTemplate/board.jpg</file>
+    </qresource>
+</RCC>
