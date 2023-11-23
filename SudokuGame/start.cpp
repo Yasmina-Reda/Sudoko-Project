@@ -42,15 +42,15 @@ void Start::on_start_clicked()
 {
  if(reply== QMessageBox::Yes)
  {
-      hide();
     solve= new Solve(this);
-    solve->show();
+    solve->setModal(true);
+    solve->exec();
  }
  else if (reply== QMessageBox::No)
  {
-      hide();
      play= new Play(this);
-    play->show();
+     play->setModal(true);
+     play->exec();
  }
 }
 }

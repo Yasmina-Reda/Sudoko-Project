@@ -14,7 +14,7 @@
    <string>Start</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: qlineargradient(spread:pad, x1:0.488636, y1:0, x2:0.528409, y2:1, stop:0 rgba(152, 255, 221, 255), stop:1 rgba(255, 255, 255, 255));</string>
+   <string notr="true">background-color: rgb(185, 255, 232);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="start">
@@ -44,7 +44,7 @@ border-color: rgb(255, 239, 174);</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>80</x>
       <y>120</y>
       <width>261</width>
       <height>71</height>

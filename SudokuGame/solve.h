@@ -2,6 +2,7 @@
 #define SOLVE_H
 
 #include <QDialog>
+#include <QStatusBar>
 
 
 namespace Ui {
@@ -24,6 +25,9 @@ private slots:
 
     void on_pushButton_Clear_clicked();
 
+    void on_pushButton_clicked();
+
+
 private:
     Ui::Solve *ui;
     int index[2]={-1,-1};
@@ -36,6 +40,9 @@ private:
                      {0,0,0,0,0,0,0,0,0},
                      {0,0,0,0,0,0,0,0,0},
                      {0,0,0,0,0,0,0,0,0}};
+    //QStatusBar* bar;
+    void updatevalue(int,int,int);
+    void updateBoard();
 };
 
 #endif // SOLVE_H

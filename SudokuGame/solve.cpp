@@ -1,9 +1,12 @@
 #include "solve.h"
+//#include "qmainwindow.h"
 #include "ui_solve.h"
 #include <QPixmap>
 #include <QTabWidget>
 #include <QTableWidgetItem>
 #include <QDialog>
+#include <QMessageBox>
+//#include <QStatusBar>
 
 Solve::Solve(QWidget *parent) :
     QDialog(parent),
@@ -12,6 +15,21 @@ Solve::Solve(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Solve Mode");
 
+    QTableWidgetItem* item;
+    for(int i=0; i<9; i++)
+    {
+        for(int j=0; j<9;j++)
+        {
+            item= new QTableWidgetItem();
+            item->setText("");
+            ui->tableWidget_board->setItem(i,j,item);
+        }
+    }
+
+
+    //bar= new QStatusBar(this);
+    //bar->showMessage("hi");
+    //bar->show();
     // better to use tables
 
    /* QPixmap board(":/image/SudokoTemplate/board.jpg");
@@ -22,6 +40,14 @@ Solve::Solve(QWidget *parent) :
 
 Solve::~Solve()
 {
+    for(int i=0; i<9; i++)
+    {
+        for(int j=0; j<9; j++)
+        {
+            QTableWidgetItem* item = ui->tableWidget_board->item(i,j);
+            delete item;
+        }
+    }
     delete ui;
 }
 
@@ -34,12 +60,13 @@ void Solve::on_tableWidget_board_cellClicked(int row, int column)
 void Solve::on_tableWidget_numbers_cellClicked(int row, int column)
 {
     int value= column+1;
-    QTableWidgetItem* item = new QTableWidgetItem();
-    item->setText(QString::number(value));
-    item->setTextAlignment(Qt::AlignCenter);
+    QTableWidgetItem* item = ui->tableWidget_board->item(index[0],index[1]);
     if(index[0]!=-1 && index[1]!=-1)
     {
-    ui->tableWidget_board->setItem(index[0],index[1],item);
+        item->setText(QString::number(value));
+        item->setTextAlignment(Qt::AlignCenter);
+
+    //ui->tableWidget_board->setItem(index[0],index[1],item);
     board[index[0]][index[1]]=value;
     index[0]=-1; index[1]=-1;
     }
@@ -51,13 +78,40 @@ void Solve::on_tableWidget_numbers_cellClicked(int row, int column)
 
 void Solve::on_pushButton_Clear_clicked()
 {
-    QTableWidgetItem* item = new QTableWidgetItem();
-    item->setText("");
+    QTableWidgetItem* item = ui->tableWidget_board->item(index[0], index[1]);
+
     if(index[0]!=-1 && index[1]!=-1)
     {
-    ui->tableWidget_board->setItem(index[0],index[1],item);
+        item->setText("");
+   // ui->tableWidget_board->setItem(index[0],index[1],item);
     board[index[0]][index[1]]=0;
     index[0]=-1; index[1]=-1;
+    }
+}
+
+
+
+void Solve::on_pushButton_clicked()
+{
+    //bar->showMessage("Solving...");
+    //algorithm here
+    //bar->showMessage("");
+}
+
+void Solve::updatevalue(int row, int col, int val)
+{
+    QTableWidgetItem * item= ui->tableWidget_board->item(row,col);
+    item->setText(QString::number(val));
+}
+
+void Solve::updateBoard()
+{
+    for(int i=0; i<9; i++)
+    {
+        for(int j=0;j<9;j++)
+        {
+            updatevalue(i,j,board[i][j]);
+        }
     }
 }
 
