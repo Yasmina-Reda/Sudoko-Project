@@ -6,6 +6,7 @@
 #include <QTableWidgetItem>
 #include <QDialog>
 #include <QMessageBox>
+#include "Solver.cpp"
 //#include <QStatusBar>
 
 Solve::Solve(QWidget *parent) :
@@ -91,17 +92,37 @@ void Solve::on_pushButton_Clear_clicked()
 
 
 
-void Solve::on_pushButton_clicked()
+void Solve::on_pushButton_solve_clicked()
 {
     //bar->showMessage("Solving...");
     //algorithm here
     //bar->showMessage("");
+    SudokuSolver::SudokuBoard sudokuBoard(board);
+
+        if (sudokuBoard.solve()) {
+            board=sudokuBoard.printBoard();
+            updateBoard();
+        }
+        else {
+            showError();
+        }
+
+    //error message if unsolvabe
 }
 
 void Solve::updatevalue(int row, int col, int val)
 {
     QTableWidgetItem * item= ui->tableWidget_board->item(row,col);
+    if(item->text()==""){
     item->setText(QString::number(val));
+    item->setForeground(Qt::blue);
+    item->setTextAlignment(Qt::AlignCenter);
+}
+}
+
+void Solve::showError()
+{
+    QMessageBox::critical(this, "Unsolvable", "This board is unsolvable");
 }
 
 void Solve::updateBoard()
@@ -110,7 +131,7 @@ void Solve::updateBoard()
     {
         for(int j=0;j<9;j++)
         {
-            updatevalue(i,j,board[i][j]);
+            updatevalue(i,j,board.at(i).at(j));
         }
     }
 }

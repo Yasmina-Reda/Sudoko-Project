@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QStatusBar>
+#include <vector>
 
 
 namespace Ui {
@@ -25,24 +26,24 @@ private slots:
 
     void on_pushButton_Clear_clicked();
 
-    void on_pushButton_clicked();
-
+    void on_pushButton_solve_clicked();
 
 private:
     Ui::Solve *ui;
     int index[2]={-1,-1};
-    int board [9][9]={{0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0},
-                     {0,0,0,0,0,0,0,0,0}};
+    std::vector<std::vector<int>> board={{0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0},
+                                         {0,0,0,0,0,0,0,0,0}};
     //QStatusBar* bar;
     void updatevalue(int,int,int);
     void updateBoard();
+    void showError();
 };
 
 #endif // SOLVE_H

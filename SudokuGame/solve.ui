@@ -240,7 +240,7 @@
     <string>Clear</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButton_solve">
    <property name="geometry">
     <rect>
      <x>140</x>
