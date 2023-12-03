@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
+#define BOARD_SIZE 9
 
 namespace SudokuSolver {
 
-    const int BOARD_SIZE = 9;
+    //const int BOARD_SIZE = 9;
 
     class SudokuBoard {
     private:
@@ -32,7 +33,7 @@ namespace SudokuSolver {
             return true;
         }
 
-        
+
         bool findEmptyPosition(int& row, int& col) {
             for (row = 0; row < BOARD_SIZE; row++) {
                 for (col = 0; col < BOARD_SIZE; col++) {
@@ -44,7 +45,7 @@ namespace SudokuSolver {
             return false;
         }
 
-        
+
         bool solveBoard() {
             int row, col;
 
@@ -75,17 +76,17 @@ namespace SudokuSolver {
         }
 
     public:
-        
+
         SudokuBoard(const std::vector<std::vector<int>>& initialBoard) {
             board = initialBoard;
         }
 
-        
+
         bool solve() {
             return solveBoard();
         }
 
-            
+
         void printBoard() {
             for (int i = 0; i < BOARD_SIZE; i++) {
                 for (int j = 0; j < BOARD_SIZE; j++) {
@@ -98,8 +99,8 @@ namespace SudokuSolver {
 }
 
 int main() {
-    // Example Sudoku board
-    std::vector<std::vector<int>> initialBoard = {
+    // example sudoku board
+    std::vector<std::vector<int>> initialboard = {
         {5, 3, 0, 0, 7, 0, 0, 0, 0},
         {6, 0, 0, 1, 9, 5, 0, 0, 0},
         {0, 9, 8, 0, 0, 0, 0, 6, 0},
@@ -111,14 +112,14 @@ int main() {
         {0, 0, 0, 0, 8, 0, 0, 7, 9}
     };
 
-    SudokuSolver::SudokuBoard sudokuBoard(initialBoard);
+    SudokuSolver::SudokuBoard sudokuboard(initialboard);
 
-    if (sudokuBoard.solve()) {
-        std::cout << "Sudoku board solved:\n";
-        sudokuBoard.printBoard();
+    if (sudokuboard.solve()) {
+        std::cout << "sudoku board solved:\n";
+        sudokuboard.printBoard();
     }
     else {
-        std::cout << "No solution exists for the given Sudoku board.\n";
+        std::cout << "no solution exists for the given sudoku board.\n";
     }
 
     return 0;
