@@ -1,5 +1,6 @@
 #include "play.h"
 #include "ui_play.h"
+#include "GenerateBoards.cpp"
 #include <QTabWidget>
 #include <QTableWidgetItem>
 #include <QDialog>
@@ -14,6 +15,8 @@ Play::Play(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("Play Mode");
 
+    SudokuSolver::GenerateBoards newBoard;
+    newBoard.Solvingboard(board,solution,answers);
     //initialize the table with board values
     QTableWidgetItem* item;
     for(int i=0; i<9; i++)
@@ -150,7 +153,7 @@ void Play::on_pushButton_help_clicked()
 void Play::on_pushButton_Display_clicked()
 {
    QMessageBox::StandardButton reply=
-    QMessageBox::question(this,"","Are you sure you want to display the final solution?",
+QMessageBox::question(this,"","Are you sure you want to display the final solution?",
                           QMessageBox::Yes | QMessageBox::No);
    if(reply==QMessageBox::Yes)
        displaySolution();

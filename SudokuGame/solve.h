@@ -28,6 +28,8 @@ private slots:
 
     void on_pushButton_solve_clicked();
 
+    void on_pushButton_clearAll_clicked();
+
 private:
     Ui::Solve *ui;
     int index[2]={-1,-1};

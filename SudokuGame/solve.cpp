@@ -136,3 +136,20 @@ void Solve::updateBoard()
     }
 }
 
+
+void Solve::on_pushButton_clearAll_clicked()
+{
+    for(int i=0; i<9;i++)
+    {
+        for(int j=0; j<9; j++)
+        {
+            QTableWidgetItem* item = ui->tableWidget_board->item(i, j);
+            {
+                item->setText("");
+            board[i][j]=0;
+            }
+        }
+    }
+                index[0]=-1; index[1]=-1;
+}
+
