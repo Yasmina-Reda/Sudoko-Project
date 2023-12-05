@@ -41,13 +41,6 @@ Play::Play(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(Timer()));
     timer->start(1000);
 
-    //better to use tables
-
-
-    /*QPixmap board(":/image/SudokoTemplate/board.jpg");
-    int w=ui->SudokoBoard->width();
-    int h=ui->SudokoBoard->height();
-    ui->SudokoBoard->setPixmap(board.scaled(w,h,Qt::KeepAspectRatio));*/
 }
 
 Play::~Play()
@@ -79,7 +72,7 @@ void Play::on_pushButton_Clear_clicked()
     QTableWidgetItem* item = ui->tableWidget_board->item(index[0], index[1]);
 
     //if a cell was selected, clear its content if it wasn't prefilled
-    if(index[0]!=-1 && index[1]!=-1 && item->foreground()!=Qt::black)
+    if(index[0]!=-1 && index[1]!=-1 && item->foreground()!=Qt::black&& !solved)
     {
         item->setText("");
    // ui->tableWidget_board->setItem(index[0],index[1],item);
@@ -152,16 +145,23 @@ void Play::on_pushButton_help_clicked()
 
 void Play::on_pushButton_Display_clicked()
 {
+    if(!solved)
+    {
    QMessageBox::StandardButton reply=
 QMessageBox::question(this,"","Are you sure you want to display the final solution?",
                           QMessageBox::Yes | QMessageBox::No);
    if(reply==QMessageBox::Yes)
-       displaySolution();
+   {displaySolution();
+       answers=81;
+       solved=true;
+   }
+    }
 }
 
 void Play::finished()
 {
     timer->stop();
+    solved=true;
     //could display best time here
     QString message="Congratulations! You Have Solved the board\nYour time is: "+timeText;
     QMessageBox::about(this, "Finished",message);

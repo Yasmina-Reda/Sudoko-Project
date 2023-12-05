@@ -28,15 +28,6 @@ Solve::Solve(QWidget *parent) :
     }
 
 
-    //bar= new QStatusBar(this);
-    //bar->showMessage("hi");
-    //bar->show();
-    // better to use tables
-
-   /* QPixmap board(":/image/SudokoTemplate/board.jpg");
-    int w=ui->SudokoBoard->width();
-    int h=ui->SudokoBoard->height();
-    ui->SudokoBoard->setPixmap(board.scaled(w,h,Qt::KeepAspectRatio));*/
 }
 
 Solve::~Solve()
@@ -122,7 +113,7 @@ void Solve::updatevalue(int row, int col, int val)
 
 void Solve::showError()
 {
-    QMessageBox::critical(this, "Unsolvable", "This board is unsolvable");
+    QMessageBox::critical(this, "Invalid Board", "This board is unsolvable");
 }
 
 void Solve::updateBoard()
