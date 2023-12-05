@@ -49,6 +49,7 @@ namespace SudokuSolver {
             return true;
         }
 
+        //overloading of is valid that checks a vector
 
         bool isValid(std::vector<std::vector<int>> check, int row, int col, int num) {
             // Check if the number already exists in the same row or column
@@ -95,6 +96,7 @@ namespace SudokuSolver {
             return true;
         }
 
+        //overloading of solveSudoku that checks a vector
         bool solveSudoku(std::vector<std::vector<int>> board) {
             for (int row = 0; row < BOARD_SIZE; row++) {
                 for (int col = 0; col < BOARD_SIZE; col++) {
@@ -139,6 +141,7 @@ namespace SudokuSolver {
             }
         }
 
+        //overloading of printboard that prints a vector
         void printBoard(std::vector<std::vector<int>> board) {
             for (int i = 0; i < BOARD_SIZE; i++) {
                 if (i > 0 && i % 3 == 0) {
@@ -154,60 +157,9 @@ namespace SudokuSolver {
             }
         }
 
-        std::vector<std::vector<int>>Solvingboard(std::vector<std::vector<int>>OurBoard)
-        {
-            OurBoard = generateValidSudoku();
-            printBoard(OurBoard);
-            std::cout << "\n\n\n\n";
-            int l, count = 0;
-            list.resize(81); bool unique = true;
-            for (int i = 0; i < 81; i++) {
-                list[i].r = i / 9;
-                list[i].c = i % 9;
-                /*
-                   for (int j = 0; j < 9;j++)
-                   {
-                       for (int k = 0; k < 9;k++)
-                       {
-                           list[i].r = j;
-                           list[i].c = k;
-
-                       }
-                   }*/
-            }
-            std::shuffle(list.begin(), list.end(), std::mt19937{ std::random_device{}() });
-            for (int i = 0; i < 81; i++)
-            {
-                count = 0;
-                l = OurBoard.at(list[i].r).at(list[i].c);
-                for (int w = 1; w < 10; w++)
-                {
-                    OurBoard.at(list[i].r).at(list[i].c) = 0;
-                    //SudokuSolver::SudokuBoard sudokuBoard(OurBoard);
-
-                    if (isValid(OurBoard, list[i].r, list[i].c, w))
-                    {
-                        count++;
-                    }
-
-                }
-                if (count != 1)
-                {
-                    OurBoard.at(list[i].r).at(list[i].c) = l;
-                }
-                /* else
-                 {
-                     OurBoard.at(list[i].r).at(list[i].c) = l;
-
-                 }*/
-            }
-
-            printBoard(OurBoard);
-            return OurBoard;
-        }
         std::vector<std::vector<int>> generateValidSudoku() {
 
-            // Solve an empty board using a backtracking algorithm
+            //initializes the board with 4 random values
 
             srand(time(NULL));
             int x;
@@ -222,27 +174,62 @@ namespace SudokuSolver {
             board[z][x] = 9;
             board[x][x] = 3;
 
-            solveSudoku(board);
-            // Shuffle the values of the entire board
-            std::vector<int> boardValues;
+            // Solve  board the using a backtracking algorithm
 
-            for (int i = 0; i < BOARD_SIZE; i++)
-            {
-                for (int j = 0; j < BOARD_SIZE; j++)
-                {
-                    boardValues.push_back(board[i][j]);
-                }
-            }
-            int idx = 0;
-            for (int i = 0; i < BOARD_SIZE; i++)
-            {
-                for (int j = 0; j < BOARD_SIZE; j++)
-                {
-                    board[i][j] = boardValues[idx++];
-                }
-            }
+            solveSudoku(board);
+
             return board;
         }
+
+        std::vector<std::vector<int>>Solvingboard(std::vector<std::vector<int>>OurBoard)
+        {
+            OurBoard = generateValidSudoku();
+            printBoard(OurBoard);
+            std::cout << "\n\n\n\n";
+            int l, count = 0;
+            list.resize(81);
+
+            //initialize a list of 81 items with random positions in the sudoku grid
+            for (int i = 0; i < 81; i++) {
+                list[i].r = i / 9;
+                list[i].c = i % 9;
+            }
+
+            //shuffle the list
+            std::shuffle(list.begin(), list.end(), std::mt19937{ std::random_device{}() });
+
+            //loop over the now shuffled list of positions
+            for (int i = 0; i < 81; i++)
+            {
+                //set the solution count to zero
+                count = 0;
+
+                //store the value at the current position, then set the cell in the board with zero
+                l = OurBoard.at(list[i].r).at(list[i].c);
+                OurBoard.at(list[i].r).at(list[i].c) = 0;
+
+                //test all possible solutions in this position
+                for (int w = 1; w < 10; w++)
+                {
+                    //if current value would be valid in this position, increase solution count
+                    if (isValid(OurBoard, list[i].r, list[i].c, w))
+                    {
+                        count++;
+                    }
+
+                }
+                //if there is no unique answer, return the value;
+                if (count != 1)
+                {
+                    OurBoard.at(list[i].r).at(list[i].c) = l;
+                }
+
+            }
+
+            printBoard(OurBoard);
+            return OurBoard;
+        }
+
     };
 }
 
